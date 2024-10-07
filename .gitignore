@@ -1,0 +1,16 @@
+#
+# git ignore files.
+#
+.env
+*.local
+
+# logs
+*.log
+
+# db
+db/data/*
+!db/data/.gitkeep
+
+# MinIO
+minio/data/*
+!minio/data/.gitkeep
