@@ -91,6 +91,17 @@ services:
       - backend
 
   #
+  # peer server
+  #
+  peer-server:
+    container_name: peer-server
+    build:
+      context: ../vc-contact_peer_server
+      dockerfile: Dockerfile
+    ports:
+      - "9500:9500"
+
+  #
   # server app.
   #
   vc-contact_server:
