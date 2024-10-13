@@ -91,12 +91,23 @@ services:
       - backend
 
   #
+  # peer server
+  #
+  peer-server:
+    container_name: peer-server
+    build:
+      context: ../vc-contact_peer_server
+      dockerfile: Dockerfile
+    ports:
+      - "9500:9500"
+
+  #
   # server app.
   #
-  webapp4_server:
-    container_name: webapp4_server
+  vc-contact_server:
+    container_name: vc-contact_server
     build:
-      context: ../webapp4_server_nestjs
+      context: ../vc-contact_server
       dockerfile: Dockerfile
     ports:
       - 3000:3000
@@ -122,10 +133,10 @@ services:
   #
   # client app.
   #
-  webapp4_client:
-    container_name: webapp4_client
+  vc-contact_client:
+    container_name: vc-contact_client
     build:
-      context: ../webapp4_client_vue3
+      context: ../vc-contact_client
       dockerfile: Dockerfile
     ports:
       - 80:80
@@ -135,8 +146,22 @@ services:
     networks:
       - backend
     depends_on:
-      webapp4_server:
+      vc-contact_server:
         condition: service_healthy
+
+  #
+  # forward proxy
+  #
+  squid:
+    container_name: squid
+    image: ubuntu/squid
+    ports:
+      - '3128:3128'
+    environment:
+      TZ: 'UTC'
+    volumes:
+      - squid_data:/var/spool/squid
+      - ./squid/squid.conf:/etc/squid/squid.conf:ro
 
 networks:
   backend: {}
@@ -144,3 +169,4 @@ networks:
 volumes:
   phpmyadmin_data: null
   mail_data: null
+  squid_data: null
