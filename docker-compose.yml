@@ -96,7 +96,7 @@ services:
   peer-server:
     container_name: peer-server
     build:
-      context: ../vc-contact_peer_server
+      context: ../bc-meeting_peer_server
       dockerfile: Dockerfile
     ports:
       - "9500:9500"
@@ -104,10 +104,10 @@ services:
   #
   # server app.
   #
-  vc-contact_server:
-    container_name: vc-contact_server
+  bc-meeting_server:
+    container_name: bc-meeting_server
     build:
-      context: ../vc-contact_server
+      context: ../bc-meeting_server
       dockerfile: Dockerfile
     ports:
       - 3000:3000
@@ -133,10 +133,10 @@ services:
   #
   # client app.
   #
-  vc-contact_client:
-    container_name: vc-contact_client
+  bc-meeting_client:
+    container_name: bc-meeting_client
     build:
-      context: ../vc-contact_client
+      context: ../bc-meeting_client
       dockerfile: Dockerfile
     ports:
       - 80:80
@@ -146,7 +146,7 @@ services:
     networks:
       - backend
     depends_on:
-      vc-contact_server:
+      bc-meeting_server:
         condition: service_healthy
 
   #
