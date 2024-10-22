@@ -110,7 +110,7 @@ services:
       context: ../bc-meeting_server
       dockerfile: Dockerfile
     ports:
-      - 3000:3000
+      - 3100:3100
     networks:
       - backend
     environment:
@@ -124,7 +124,7 @@ services:
       db:
         condition: service_healthy
     healthcheck:
-      test: ['CMD-SHELL', 'curl http://localhost:3000/api || exit 1']
+      test: ['CMD-SHELL', 'curl http://localhost:3100/api || exit 1']
       start_period: 3s
       retries: 3
       timeout: 1s
